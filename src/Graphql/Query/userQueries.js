@@ -1,4 +1,6 @@
-const { madeQuery } = require('../../lib/db')
+const { Database } = require('../../lib/db')
+
+const db = new Database();
 
 const getUser = () => {
     return {
@@ -12,7 +14,7 @@ const getUser = () => {
 
 const getUsers = async () => {
     try {
-        const queryResults = await madeQuery('select * from users')
+        const queryResults = await db.select('select * from users')
         return queryResults
     } catch (error) {
         console.error(error)

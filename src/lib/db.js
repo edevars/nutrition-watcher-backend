@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const chalk = require('chalk');
 const { config } = require('../../config');
 const log = console.log;
-
+// TODO: Change functrions into a class driver
 let connection;
 
 const { host, user, password, database, dev } = config
@@ -29,4 +29,20 @@ function connectDB() {
 
 }
 
-module.exports = { connectDB }
+function madeQuery(query) {
+    return new Promise((resolve, reject) => {
+        const connection = connectDB()
+        connection.query(query, function (error, rows) {
+            if (error) throw new Error(error)
+            if (rows === undefined) {
+                reject(new Error('Error rows is undefined'));
+            } else {
+                let string = JSON.stringify(rows);
+                var json = JSON.parse(string);
+                resolve(json);
+            }
+        });
+    })
+}
+
+module.exports = { madeQuery }

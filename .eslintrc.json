@@ -9,6 +9,7 @@
         "ecmaVersion": 11
     },
     "rules": {
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "_" }]
     }
 }

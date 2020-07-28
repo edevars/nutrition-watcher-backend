@@ -76,6 +76,23 @@ class Database {
             });
         })
     }
+
+    insert(table,fields,values){
+        let sql = `INSERT INTO ${table} (${fields}) VALUES ?`;
+        return new Promise((resolve, reject) => {
+            this.connectDB()
+            this.connection.query(sql, [values], function (error, result) {
+                if (error) throw new Error(error)
+                if (result === undefined) {
+                    reject(new Error('Error: couldn\'t insert the values'));
+                } else {
+                    resolve(result.affectedRows)
+                }
+            });
+        })
+    }
+
+    
 }
 
 

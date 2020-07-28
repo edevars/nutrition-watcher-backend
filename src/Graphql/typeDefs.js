@@ -22,7 +22,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        getUser: User,
+        getUser(id: Int!): User,
         getUsers: [User]
     }
 

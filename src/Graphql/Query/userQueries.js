@@ -2,7 +2,13 @@ const { Database } = require('../../lib/db')
 
 const db = new Database();
 
-const getUser = () => {
+const getUser = async (_, { id }) => {
+    try {
+        const queryResults = await db.select(`select * from users where user_id=${id}`)
+        return queryResults[0]
+    } catch (error) {
+        console.error(error)
+    }
     return {
         user_id: 1,
         user_name: 'Enrique',

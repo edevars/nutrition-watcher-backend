@@ -2,7 +2,7 @@ const { Database } = require('../../lib/db')
 
 const db = new Database();
 
-const getUser = async (_, { id }) => {
+const user = async (_, { id }) => {
     try {
         const queryResults = await db.select(`select * from users where user_id=${id}`)
         return queryResults[0]
@@ -18,7 +18,7 @@ const getUser = async (_, { id }) => {
     }
 }
 
-const getUsers = async () => {
+const users = async () => {
     try {
         const queryResults = await db.select('select * from users')
         return queryResults
@@ -28,6 +28,6 @@ const getUsers = async () => {
 }
 
 module.exports = {
-    getUser,
-    getUsers
+    user,
+    users
 }

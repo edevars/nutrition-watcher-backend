@@ -22,8 +22,8 @@ const typeDefs = gql`
     }
 
     type Query {
-        getUser(id: Int!): User,
-        getUsers: [User]
+        user(id: Int!): User,
+        users: [User]
     }
 
     input UserInput {
@@ -34,7 +34,7 @@ const typeDefs = gql`
     }
 
     type Mutation{
-        deleteUser(id: ID!): deleteResponse!
+        deleteUser(id: Int!): deleteResponse!
         insertUsers(users: [UserInput!]!) : insertResponse
     }
 `

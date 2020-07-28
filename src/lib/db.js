@@ -6,7 +6,7 @@ const log = console.log;
 const { host, user, password, database, dev } = config
 
 class Database {
-    constructor(){
+    constructor() {
         this.host = host
         this.database = database
         this.user = user
@@ -14,10 +14,10 @@ class Database {
         this.connection = null
     }
 
-    connectDB(){
+    connectDB() {
         if (this.connection) {
             dev && log(chalk.bgRed.white.bold(`Connection with ${this.connection.config.database} already exists`))
-        }else{
+        } else {
             try {
                 this.connection = mysql.createConnection({
                     host: this.host,
@@ -29,10 +29,10 @@ class Database {
             } catch (error) {
                 console.error('Something wrond ocurred: ', error)
             }
-        }    
+        }
     }
 
-    select(query){
+    select(query) {
         return new Promise((resolve, reject) => {
             this.connectDB()
             this.connection.query(query, function (error, rows) {
@@ -43,6 +43,35 @@ class Database {
                     let string = JSON.stringify(rows);
                     var json = JSON.parse(string);
                     resolve(json);
+                }
+            });
+        })
+    }
+
+    deleteAll(table) {
+        return new Promise((resolve, reject) => {
+            this.connectDB()
+            this.connection.query(`delete from ${table}`, function (error, result) {
+                if (error) throw new Error(error)
+                if (result === undefined) {
+                    reject(new Error('Error: couldn\'t delete the field'));
+                } else {
+                    const message = 'Number of records deleted: ' + result.affectedRows
+                    resolve(message);
+                }
+            });
+        })
+    }
+
+    deleteBy(table, field, value) {
+        return new Promise((resolve, reject) => {
+            this.connectDB()
+            this.connection.query(`delete from ${table} where ${field}=${value}`, function (error, result) {
+                if (error) throw new Error(error)
+                if (result === undefined) {
+                    reject(new Error('Error: couldn\'t delete the field'));
+                } else {
+                    resolve(result.affectedRows)
                 }
             });
         })

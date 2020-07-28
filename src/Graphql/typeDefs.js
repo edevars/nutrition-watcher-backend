@@ -2,6 +2,11 @@ const { gql } = require('apollo-server')
 
 const typeDefs = gql`
 
+    type deleteResponse {
+        recordsDeleted: Int!
+        message: String!
+    }
+
     type User {
         user_id: ID!
         user_name: String!
@@ -16,7 +21,7 @@ const typeDefs = gql`
     }
 
     type Mutation{
-        deleteUser(id: ID!): String! 
+        deleteUser(id: ID!): deleteResponse! 
     }
 `
 

@@ -2,9 +2,9 @@ const { Database } = require('../../lib/db')
 
 const db = new Database();
 
-const deleteUser = async () => {
+const deleteUser = async (_, { id }) => {
     try {
-        const recordsDeleted = await db.deleteBy('users', 'user_id', 1)
+        const recordsDeleted = await db.deleteBy('users', 'user_id', id)
         if (recordsDeleted === 0) {
             return {
                 recordsDeleted,
@@ -13,7 +13,7 @@ const deleteUser = async () => {
         }
         return {
             recordsDeleted,
-            message: 'The deletion completes succesfully'
+            message: `The deletion completes succesfully with id: ${id}`
         }
     } catch (error) {
         console.error(error)

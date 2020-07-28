@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server')
 
 const typeDefs = gql`
+
     type User {
         user_id: ID!
         user_name: String!
@@ -12,6 +13,10 @@ const typeDefs = gql`
     type Query {
         getUser: User,
         getUsers: [User]
+    }
+
+    type Mutation{
+        deleteUser(id: ID!): String! 
     }
 `
 

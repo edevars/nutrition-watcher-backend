@@ -14,11 +14,13 @@ const typeDefs = gql`
     }
 
     type User {
-        user_id: ID!
-        user_name: String!
-        user_url_photo: String!
+        userId: ID!
+        name: String!
+        userUrlPhoto: String!
         email: String!
-        user_password: String!
+        password: String!
+        createdAt: String
+        updatedAt: String
     }
 
     type Query {
@@ -27,10 +29,10 @@ const typeDefs = gql`
     }
 
     input UserInput {
-        user_name: String!
+        name: String!
         user_url_photo: String!
         email: String!
-        user_password: String!
+        password: String!
     }
 
     type Mutation{

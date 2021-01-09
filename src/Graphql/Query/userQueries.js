@@ -1,30 +1,45 @@
-const { Database } = require('../../lib/db')
+const sequelize = require('../../sequelize')
+const User = require('../../Models/User')(sequelize)
 
-const db = new Database();
+
 
 const user = async (_, { id }) => {
-    try {
-        const queryResults = await db.select(`select * from users where user_id=${id}`)
-        return queryResults[0]
-    } catch (error) {
-        console.error(error)
-    }
+    const timeElapsed = await Date.now();
+    const today = new Date(timeElapsed);
     return {
-        user_id: 1,
-        user_name: 'Enrique',
+        userId: 1,
+        name: 'Enrique',
         user_url_photo: 'photo.png',
         email: 'enrique.devars@gmail.com',
-        password: 'some shit'
+        password: 'some shit',
+        createdAt: today.toISOString(),
+        updatedAt: today.toISOString(),
     }
 }
 
 const users = async () => {
-    try {
-        const queryResults = await db.select('select * from users')
-        return queryResults
-    } catch (error) {
-        console.error(error)
-    }
+    const timeElapsed = await Date.now();
+    const today = new Date(timeElapsed);
+    return ([
+        {
+            userId: 1,
+            name: 'Enrique',
+            user_url_photo: 'photo.png',
+            email: 'enrique.devars@gmail.com',
+            password: 'some shit',
+            createdAt: today.toISOString(),
+            updatedAt: today.toISOString(),
+        },
+        {
+            userId: 1,
+            name: 'Enrique',
+            user_url_photo: 'photo.png',
+            email: 'enrique.devars@gmail.com',
+            password: 'some shit',
+            createdAt: today.toISOString(),
+            updatedAt: today.toISOString(),
+        }
+    ])
 }
 
 module.exports = {

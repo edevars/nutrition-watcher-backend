@@ -4,7 +4,8 @@
   "description": "The backend for a nutrition app",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon src/index.js"
+    "dev": "NODE_ENV=development nodemon src/index.js",
+    "start": "NODE_ENV=development nodemon src/lib/db.js"
   },
   "repository": {
     "type": "git",

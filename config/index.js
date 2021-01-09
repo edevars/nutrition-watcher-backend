@@ -4,9 +4,10 @@ dotenv.config()
 
 const config = {
     host: process.env.HOST,
-    user: process.env.USER,
+    username: process.env.USER_NAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
+    port: process.env.PORT,
     dev: process.env.NODE_ENV === 'development'
 }
 

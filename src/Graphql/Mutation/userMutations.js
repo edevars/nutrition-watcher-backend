@@ -9,7 +9,6 @@ const deleteUserById = async (_, { id }) => {
                 userId: id
             }
         });
-        console.log(deletedUser);
         if (deletedUser !== 0) {
             return {
                 recordsDeleted: 1,

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-    sequelize.define('user', {
+    const User = sequelize.define('user', {
         userId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -21,4 +21,6 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
         }
     })
+
+    return User;
 }

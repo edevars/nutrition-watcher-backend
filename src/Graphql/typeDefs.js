@@ -7,12 +7,6 @@ const typeDefs = gql`
         message: String!
     }
 
-    type insertResponse {
-        recordsInserted: Int!
-        message: String!
-        usersInserted: [User]
-    }
-
     type User {
         userId: ID!
         name: String!
@@ -30,14 +24,14 @@ const typeDefs = gql`
 
     input UserInput {
         name: String!
-        user_url_photo: String!
+        userUrlPhoto: String!
         email: String!
         password: String!
     }
 
     type Mutation{
         deleteUserById(id: Int!): deleteResponse!
-        createUser(users: [UserInput!]!) : insertResponse
+        createUser(user: UserInput!) : User!
     }
 `
 

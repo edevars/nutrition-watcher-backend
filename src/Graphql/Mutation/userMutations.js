@@ -4,15 +4,24 @@ const User = require('../../Models/User')(sequelize)
 
 const deleteUserById = async (_, { id }) => {
     try {
-        await User.destroy({
+        const deletedUser = await User.destroy({
             where: {
                 userId: id
             }
         });
-        return {
-            recordsDeleted: 1,
-            message: `User with the Id: ${id} successfully deleted`
+        console.log(deletedUser);
+        if (deletedUser !== 0) {
+            return {
+                recordsDeleted: 1,
+                message: `User with the Id: ${id} successfully deleted`
+            }
         }
+
+        return {
+            recordsDeleted: 0,
+            message: `The user with id: ${id} doesn't exists`
+        }
+
     } catch (error) {
         console.error(error)
     }
@@ -20,7 +29,12 @@ const deleteUserById = async (_, { id }) => {
 }
 
 const createUser = async (_, { user }) => {
-
+    try {
+        const newUser = await User.create(user);
+        return newUser;
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 module.exports = {

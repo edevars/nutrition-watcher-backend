@@ -46,7 +46,26 @@ const signupUser = async (root, args) => {
     }
 }
 
+const loginUser = async (root, args) => {
+    const { user: { email, password } } = args;
+    try {
+        const { dataValues: findedUser } = await User.findOne({
+            where: {
+                email: email
+            }
+        });
+
+        if (!findedUser) throw new Error('Please check your usear and password again');
+        const isMatch = bcrypt.compareSync(password, findedUser.password);
+        if (!isMatch) throw new Error('Please check your usear and password again');
+        return { token: jwt.sign(findedUser, jwtSecret) };
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 module.exports = {
     deleteUserById,
-    signupUser
+    signupUser,
+    loginUser
 }

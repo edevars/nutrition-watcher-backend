@@ -17,21 +17,31 @@ const typeDefs = gql`
         updatedAt: String
     }
 
-    type Query {
-        user(id: Int!): User,
-        users: [User]
-    }
-
-    input UserInput {
+    input UserCreateInput {
         name: String!
         userUrlPhoto: String!
         email: String!
         password: String!
     }
 
+    input UserLoginInput {
+        email: String!
+        password: String!
+    }
+
+    type AuthPayLoad {
+        token: String!
+    }
+
+    type Query {
+        user(id: Int!): User,
+        users: [User]
+    }
+
     type Mutation{
         deleteUserById(id: Int!): deleteResponse!
-        createUser(user: UserInput!) : User!
+        signupUser(user: UserCreateInput!) : AuthPayLoad!
+        loginUser(user: UserLoginInput!): AuthPayLoad!
     }
 `
 

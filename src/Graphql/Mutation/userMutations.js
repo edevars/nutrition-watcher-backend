@@ -1,8 +1,13 @@
 const sequelize = require('../../sequelize')
 const User = require('../../Models/User')(sequelize)
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { config } = require('../../../config');
 
+const { jwtSecret } = config;
 
-const deleteUserById = async (_, { id }) => {
+const deleteUserById = async (root, args) => {
+    const { id } = args;
     try {
         const deletedUser = await User.destroy({
             where: {
@@ -27,10 +32,15 @@ const deleteUserById = async (_, { id }) => {
 
 }
 
-const createUser = async (_, { user }) => {
+const signupUser = async (root, args) => {
+    const { user } = args;
     try {
-        const newUser = await User.create(user);
-        return newUser;
+        const { dataValues: newUser } = await User.create({
+            ...user,
+            password: bcrypt.hashSync(user.password, 3)
+        });
+
+        return { token: jwt.sign(newUser, jwtSecret) };
     } catch (error) {
         console.error(error)
     }
@@ -38,5 +48,5 @@ const createUser = async (_, { user }) => {
 
 module.exports = {
     deleteUserById,
-    createUser
+    signupUser
 }

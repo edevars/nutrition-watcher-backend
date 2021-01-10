@@ -8,6 +8,7 @@ const config = {
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
     port: process.env.PORT,
+    jwtSecret: process.env.JWT_SECRET,
     dev: process.env.NODE_ENV === 'development'
 }
 

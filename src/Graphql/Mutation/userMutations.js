@@ -55,9 +55,9 @@ const loginUser = async (root, args) => {
             }
         });
 
-        if (!findedUser) throw new Error('Please check your usear and password again');
+        if (!findedUser) throw new Error('Please check your user and password');
         const isMatch = bcrypt.compareSync(password, findedUser.password);
-        if (!isMatch) throw new Error('Please check your usear and password again');
+        if (!isMatch) throw new Error('Please check your user and password');
         return { token: jwt.sign(findedUser, jwtSecret) };
     } catch (error) {
         console.error(error)

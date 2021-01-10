@@ -36,8 +36,8 @@ const typeDefs = gql`
     }
 
     type Mutation{
-        deleteUser(id: Int!): deleteResponse!
-        insertUsers(users: [UserInput!]!) : insertResponse
+        deleteUserById(id: Int!): deleteResponse!
+        createUser(users: [UserInput!]!) : insertResponse
     }
 `
 

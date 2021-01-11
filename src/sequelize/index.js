@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const { config } = require('../../config')
+const { applyRelations } = require('./aplyingRelations');
+
 const { username, password, host, database, port, dev } = config;
 
 // Creating conection
@@ -17,12 +19,14 @@ const sequelize = new Sequelize(database, username, password, {
 
 //Defyning models
 const modelDefiners = [
-    require('../Models/User')
+    require('../Models/User'),
+    require('../Models/DailyCheck')
 ]
 
-// Adding models
 modelDefiners.map(modelDefiner => {
     modelDefiner(sequelize)
 })
+
+applyRelations(sequelize)
 
 module.exports = sequelize 

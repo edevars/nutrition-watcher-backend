@@ -1,11 +1,10 @@
-const sequelize = require('../../sequelize')
-const User = require('../../Models/User')(sequelize)
+const { models } = require('../../sequelize')
 const { decodedToken } = require('../../auth/decodedToken')
 
 const user = async (_, { id }, { req }) => {
     decodedToken(req)
     try {
-        const user = await User.findOne({
+        const user = await models.user.findOne({
             where: {
                 userId: id
             }
@@ -22,7 +21,7 @@ const users = async (_, __, context) => {
     const { req } = context;
     decodedToken(req);
     try {
-        const users = await User.findAll();
+        const users = await models.user.findAll();
         return (users)
     } catch (error) {
         console.error(error);

@@ -1,5 +1,4 @@
-const sequelize = require('../../sequelize')
-const User = require('../../Models/User')(sequelize)
+const { models } = require('../../sequelize')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { config } = require('../../../config');
@@ -9,7 +8,7 @@ const { jwtSecret } = config;
 const deleteUserById = async (root, args) => {
     const { id } = args;
     try {
-        const deletedUser = await User.destroy({
+        const deletedUser = await models.user.destroy({
             where: {
                 userId: id
             }
@@ -35,7 +34,7 @@ const deleteUserById = async (root, args) => {
 const signupUser = async (root, args) => {
     const { user } = args;
     try {
-        const { dataValues: newUser } = await User.create({
+        const { dataValues: newUser } = await models.user.create({
             ...user,
             password: bcrypt.hashSync(user.password, 3)
         });
@@ -49,12 +48,12 @@ const signupUser = async (root, args) => {
 const loginUser = async (root, args) => {
     const { user: { email, password } } = args;
     try {
-        const { dataValues: findedUser } = await User.findOne({
+        const { dataValues: findedUser } = await models.user.findOne({
             where: {
                 email: email
             }
         });
-
+        
         if (!findedUser) throw new Error('Please check your user and password');
         const isMatch = bcrypt.compareSync(password, findedUser.password);
         if (!isMatch) throw new Error('Please check your user and password');

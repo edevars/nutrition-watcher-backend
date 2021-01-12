@@ -2,11 +2,6 @@ const { gql } = require('apollo-server')
 
 const typeDefs = gql`
 
-    type deleteResponse {
-        recordsDeleted: Int!
-        message: String!
-    }
-
     type User {
         userId: ID!
         name: String!
@@ -15,6 +10,30 @@ const typeDefs = gql`
         password: String!
         createdAt: String
         updatedAt: String
+    }
+
+    type DailyCheck {
+        idDailyCheck: ID!
+        weight: Float!
+        waistLenght: Float!
+        date: String!
+        waterGlasses: Int
+        caloriesCount: Int
+        userId: ID!
+    }
+
+    input DailyCheckCreateInput {
+        weight: Float!
+        waistLenght: Float!
+        date: String!
+        waterGlasses: Int
+        caloriesCount: Int
+        userId: ID!
+    }
+
+    type deleteResponse {
+        recordsDeleted: Int!
+        message: String!
     }
 
     input UserCreateInput {
@@ -34,14 +53,22 @@ const typeDefs = gql`
     }
 
     type Query {
+        # Users
         user(id: Int!): User,
         users: [User]
+
+        # DailyChecks
+        getDailyCheck(userId: ID!): DailyCheck
     }
 
     type Mutation{
+        # Users
         deleteUserById(id: Int!): deleteResponse!
         signupUser(user: UserCreateInput!) : AuthPayLoad!
         loginUser(user: UserLoginInput!): AuthPayLoad!
+
+        # DailyChecks
+        createDailyCheck(dailyCheck: DailyCheckCreateInput!): DailyCheck
     }
 `
 

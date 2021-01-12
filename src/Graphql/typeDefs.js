@@ -25,7 +25,6 @@ const typeDefs = gql`
     input DailyCheckCreateInput {
         weight: Float!
         waistLenght: Float!
-        date: String!
         waterGlasses: Int
         caloriesCount: Int
         userId: ID!

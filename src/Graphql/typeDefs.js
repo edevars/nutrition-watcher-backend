@@ -58,7 +58,7 @@ const typeDefs = gql`
         users: [User]
 
         # DailyChecks
-        getDailyCheck(userId: ID!): DailyCheck
+        getDailyChecks(userId: ID!): [DailyCheck]
     }
 
     type Mutation{
